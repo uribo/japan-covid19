@@ -33,6 +33,14 @@ ne_jpn <-
   arrange(iso_3166_2)
 plan_data <- 
   drake::drake_plan(
+    dl_pops_2018h30_prefs = {
+      if (!file.exists("data-raw/2018h30_a00400.xls")) {
+        download.file(
+          "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
+          destfile = "data-raw/2018h30_a00400.xls"
+        )  
+      }
+    },
     # 13822000
     # 1382万2000
     df_pop_201810 =
@@ -60,6 +68,8 @@ plan_data <-
   df_raw =
     readr::read_csv("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv") %>% 
     assertr::verify(ncol(.) == 50),
+  data_lastupdate = 
+    lubridate::mdy_hm(c(na.omit(unique(df_raw$更新日時))), tz = "Asia/Tokyo"),
   df =
     df_raw %>% 
     # 予備項目
@@ -107,30 +117,109 @@ plan_data <-
     jpn77 %>% 
     left_join(df_pref_ratio,
               by = c("jis_code" = "jis_code",
-                     "prefecture_kanji" = "prefecture_kanji")))
+                     "prefecture_kanji" = "prefecture_kanji")) %>% 
+    mutate(n = tidyr::replace_na(n, 0)))
 drake::make(plan_data)
-drake::loadd(list = c("df_raw", "df", "sf_df", "df_pref_ratio", "df_plot"))
-
-if (!file.exists("data-raw/2018h30_a00400.xls")) {
-  download.file(
-    "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
-    destfile = "data-raw/2018h30_a00400.xls"
-  )  
-}
+drake::loadd(list = c("df_raw", "df", "sf_df", "df_pref_ratio", "df_plot", "data_lastupdate"))
 # mapview::mapview(df)
 
-df_plot %>% 
-  tabularmap(fill = n, label = prefecture_kanji, 
+library(patchwork)
+p1_a <- 
+  df_plot %>% 
+  mutate(label = glue::glue("{prefecture_kanji}\n({n})")) %>% 
+  tabularmap(fill = n, 
+             label = label, 
              family = "IPAexGothic",
-             color = "white") +
-  theme_tabularmap() +
-  scale_fill_viridis_c()
-df_plot %>% 
-  tabularmap(fill = ratio, label = prefecture_kanji, 
-             family = "IPAexGothic",
-             color = "white") +
-  theme_tabularmap() +
-  scale_fill_viridis_c()
+             color = "white",
+             size = 2) +
+  theme_tabularmap(base_family = "IPAexGothic") +
+  nord::scale_fill_nord("halifax_harbor", 
+                        discrete = FALSE,
+                        name = "人数") +
+  # labs(title = "都道府県別コロナウイルス感染者数",
+  #      subtitle = "感染者の居住地",
+  #      caption = glue::glue("作成: Shinya Uryu (@u_ribo)
+  #      データソース: 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）
+  #      (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\n{data_lastupdate}時点
+  #      レイアウト: カラム地図 (CC0, https://github.com/tabularmaps/hq)
+  #                           括弧内の数値は感染者数")) +
+  theme(plot.caption = element_text(size = 6)) +
+  guides(fill = FALSE)
 
-df_pref_ratio %>% 
-  arrange(desc(ratio))
+p2_a <- 
+  df_plot %>% 
+  mutate(label = glue::glue("{prefecture_kanji}\n({n})")) %>% 
+  tabularmap(fill = ratio, label = label, 
+             family = "IPAexGothic",
+             color = "white",
+             size = 2) +
+  theme_tabularmap(base_family = "IPAexGothic") +
+  nord::scale_fill_nord("halifax_harbor", 
+                        discrete = FALSE,
+                        name = "人口比率(%)") +
+  theme(plot.caption = element_text(size = 6)) +
+  guides(fill = FALSE)
+
+p1_b <-
+  df_plot %>% 
+  filter(n > 0) %>% 
+  arrange(desc(ratio)) %>% 
+  ggplot(aes(forcats::fct_reorder(prefecture_kanji, n), n)) +
+  geom_bar(stat = "identity", aes(fill = n)) +
+  nord::scale_fill_nord("halifax_harbor", 
+                        discrete = FALSE,
+                        name = "感染者数") +
+  coord_flip() +
+  theme_gray(base_family = "IPAexGothic", base_size = 8) +
+  xlab(NULL)
+p2_b <- 
+  df_plot %>% 
+  filter(n > 0) %>% 
+  arrange(desc(ratio)) %>% 
+  ggplot(aes(forcats::fct_reorder(prefecture_kanji, ratio), ratio)) +
+  geom_bar(stat = "identity", aes(fill = ratio)) +
+  nord::scale_fill_nord("halifax_harbor", 
+                        discrete = FALSE,
+                        name = "人口比率(%)") +
+  coord_flip() +
+  theme_gray(base_family = "IPAexGothic", base_size = 8) +
+  xlab(NULL)
+
+p1_a + p1_b +
+  plot_layout(ncol = 2) +
+  plot_annotation(
+    theme = theme(text = element_text(family = "IPAexGothic"),
+                  plot.caption = element_text(size = 6)),
+    title = "都道府県別コロナウイルス感染者数",
+    subtitle = "1) 感染者の居住地",
+    caption = glue::glue("作成: Shinya Uryu (@u_ribo)
+       データソース: 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）
+       (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\n{data_lastupdate}時点
+       レイアウト: カラム地図 (CC0, https://github.com/tabularmaps/hq)
+                            括弧内の数値は感染者数"))
+ggsave(last_plot(),
+       filename = glue::glue("figures/{datetime}_prefecture_count.png",
+                             datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
+                               stringr::str_replace_all(":", "")),
+       width = 10,
+       height = 8)
+
+p2_a + p2_b +
+  plot_layout(ncol = 2) +
+  plot_annotation(
+    theme = theme(text = element_text(family = "IPAexGothic"),
+                  plot.caption = element_text(size = 6)),
+    title = "都道府県別コロナウイルス感染者数",
+    subtitle = "2) 感染者の居住地と人口の比率",
+    caption = glue::glue("作成: Shinya Uryu (@u_ribo)
+       データソース: 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）
+       (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\n{data_lastupdate}時点、
+       人口推計 (2018年10月1日現在) 総人口
+       レイアウト: カラム地図 (CC0, https://github.com/tabularmaps/hq)
+                            括弧内の数値は感染者数"))
+ggsave(last_plot(),
+       filename = glue::glue("figures/{datetime}_prefecture_population_ratio.png",
+                             datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
+                               stringr::str_replace_all(":", "")),
+       width = 10,
+       height = 8)

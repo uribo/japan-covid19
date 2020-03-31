@@ -244,6 +244,13 @@
       "Repository": "CRAN",
       "Hash": "38ec653c2613bed60052ba3787bd8a2c"
     },
+    "forcats": {
+      "Package": "forcats",
+      "Version": "0.5.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1cb4279e697650f0bd78cd3601ee7576"
+    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.3.0",
@@ -341,6 +348,20 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "0ed9365684dc39cdd0bb5bd2f316dc67"
+    },
+    "nord": {
+      "Package": "nord",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e5461da1c65b11686918205affa8ebff"
+    },
+    "patchwork": {
+      "Package": "patchwork",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "16eee5b5edc41eec5af1149ccdc6b2c9"
     },
     "pillar": {
       "Package": "pillar",
@@ -568,6 +589,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "8248ee35d1e15d1e506f05f5a5d46a75"
+    },
+    "tidyr": {
+      "Package": "tidyr",
+      "Version": "1.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fb73a010ace00d6c584c2b53a21b969c"
     },
     "tidyselect": {
       "Package": "tidyselect",
