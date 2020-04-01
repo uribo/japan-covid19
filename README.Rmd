@@ -13,4 +13,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## データソース
 
-- 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）  ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ja))
+- 都道府県別新型コロナウイルス感染者数マップ　[https://gis.jag-japan.com/covid19jp/](https://gis.jag-japan.com/covid19jp/)（ジャッグジャパン株式会社提供）  ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ja))
