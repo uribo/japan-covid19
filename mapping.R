@@ -33,7 +33,7 @@ library(kuniumi)
 library(nord)
 ne_jpn <- 
   ne_states(country = "Japan", returnclass = "sf") %>% 
-  tibble::new_tibble(nrow = nrow(.), subclass = "sf") %>% 
+  tibble::new_tibble(nrow = nrow(.), class = "sf") %>% 
   arrange(iso_3166_2)
 plan_data <- 
   drake::drake_plan(
