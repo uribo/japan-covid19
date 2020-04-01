@@ -120,7 +120,7 @@ plan_data <-
     st_set_crs(4326) %>% 
     st_crop(ne_jpn) %>% 
     tibble::new_tibble(class = "sf", nrow = nrow(.)) %>% 
-    verify(dim(.) == c(1264, 17)),
+    verify(dim(.) == c(1309, 17)),
   df_pref_ratio = 
     df_pop_201810 %>% 
     select(jis_code, prefecture_kanji, total_both_sexes) %>% 
@@ -243,4 +243,5 @@ ggsave(last_plot(),
        width = 10,
        height = 8)
 file.copy(path2prefecture_population_ratio,
-          "figures/latest_prefecture_population_ratio.png")
+          "figures/latest_prefecture_population_ratio.png", 
+          overwrite = TRUE)

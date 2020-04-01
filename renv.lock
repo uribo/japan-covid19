@@ -75,12 +75,8 @@
     "askpass": {
       "Package": "askpass",
       "Version": "1.1",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "askpass",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "1.1",
       "Hash": "e8a22846fff485f0be3770c2da758713"
     },
     "assertr": {
@@ -174,12 +170,8 @@
     "clipr": {
       "Package": "clipr",
       "Version": "0.7.0",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "clipr",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "0.7.0",
       "Hash": "08cf4045c149a0f0eaf405324c7495bd"
     },
     "colorspace": {
@@ -471,8 +463,8 @@
       "RemoteUsername": "uribo",
       "RemoteRepo": "kuniumi",
       "RemoteRef": "master",
-      "RemoteSha": "be849d0c4a3440fa7167f5ebc91835330db271e4",
-      "Hash": "5f953edec4a2fb0cf03698dd480c8284"
+      "RemoteSha": "5e3398d87a872e91854accdf73c5e303f042c7d5",
+      "Hash": "cd3eb070594c48ce85ab4d24ab60992e"
     },
     "labeling": {
       "Package": "labeling",
@@ -540,12 +532,8 @@
     "lubridate": {
       "Package": "lubridate",
       "Version": "1.7.4",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "lubridate",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "1.7.4",
       "Hash": "796afeea047cda6bdb308d374a33eeb6"
     },
     "magrittr": {
@@ -621,12 +609,8 @@
     "openssl": {
       "Package": "openssl",
       "Version": "1.4.1",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "openssl",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "1.4.1",
       "Hash": "49f7258fd86ebeaea1df24d9ded00478"
     },
     "patchwork": {
@@ -819,12 +803,8 @@
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "1.3-2",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "rprojroot",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "1.3-2",
       "Hash": "f6a407ae5dd21f6f80a6708bbb6eb3ae"
     },
     "rstudioapi": {
@@ -941,8 +921,8 @@
       "RemoteUsername": "uribo",
       "RemoteRepo": "tabularmaps",
       "RemoteRef": "master",
-      "RemoteSha": "d49b6a169ae0cd03ecb362acc50d4358fc3284ba",
-      "Hash": "c0b328b23bd37da9bd7998368dcee4cb"
+      "RemoteSha": "897c180192682429bb6da034eda91d150665b6f5",
+      "Hash": "c1fa13c81c9467e11aafbd6f6531c7ba"
     },
     "testthat": {
       "Package": "testthat",
@@ -953,10 +933,10 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "2.1.3",
+      "Version": "3.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8248ee35d1e15d1e506f05f5a5d46a75"
+      "Hash": "e742bc8d72071ef9aba29f71f132d773"
     },
     "tidyr": {
       "Package": "tidyr",
@@ -1051,10 +1031,10 @@
     },
     "xml2": {
       "Package": "xml2",
-      "Version": "1.2.5",
+      "Version": "1.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "13efdfe4c591af40c1c29dc6408281ed"
+      "Hash": "415db5714ce4d3f7aa46e0320213a2cb"
     },
     "xtable": {
       "Package": "xtable",
