@@ -3,7 +3,7 @@
 
 日本国内で発生した新型コロナウィルス感染症（COVID-19）のデータを可視化しています。
 
-![](figures/2020-03-31_183600_prefecture_population_ratio.png)
+![](figures/latest_prefecture_population_ratio.png)
 
 ## データソース
 
