@@ -204,21 +204,24 @@ p1_b <-
 p2_b <-
   plot_bar_covid19(df_plot, ratio, name = "人口比率(%)")
 
-plot_caption <- glue::glue("作成: Shinya Uryu (@u_ribo)
+plot_caps <- 
+  list(
+    title = "都道府県別 コロナウイルス感染者数(累計)",
+    caption = glue::glue("作成: Shinya Uryu (@u_ribo)
        データソース: 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）
        (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\n{data_lastupdate}時点
        レイアウト: カラム地図 (CC0, https://github.com/tabularmaps/hq)
                             括弧内の数値は感染者数
-                         {data_period}のデータに基づく値")
+                         {data_period}のデータに基づく値"))
 
 p1_a + p1_b +
   plot_layout(ncol = 2) +
   plot_annotation(
     theme = theme(text = element_text(family = "IPAexGothic"),
                   plot.caption = element_text(size = 6)),
-    title = "都道府県別コロナウイルス感染者数",
+    title = plot_caps$title,
     subtitle = "1) 感染者の居住地",
-    caption = plot_caption)
+    caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = glue::glue("figures/{datetime}_prefecture_count.png",
                              datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
@@ -231,9 +234,9 @@ p2_a + p2_b +
   plot_annotation(
     theme = theme(text = element_text(family = "IPAexGothic"),
                   plot.caption = element_text(size = 6)),
-    title = "都道府県別コロナウイルス感染者数",
+    title = plot_caps$title,
     subtitle = "2) 感染者の居住地と人口の比率",
-    caption = plot_caption)
+    caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = path2prefecture_population_ratio,
        width = 10,
