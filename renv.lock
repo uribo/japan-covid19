@@ -72,6 +72,13 @@
       "Repository": "CRAN",
       "Hash": "5ef9c463e30f8aea49c293e4b8d9d7be"
     },
+    "RcppEigen": {
+      "Package": "RcppEigen",
+      "Version": "0.3.3.7.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c6faf038ba4346b1de19ad7c99b8f94a"
+    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.1",
@@ -117,12 +124,8 @@
     "bitops": {
       "Package": "bitops",
       "Version": "1.0-6",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemoteRef": "bitops",
-      "RemoteRepos": "https://cran.rstudio.com",
-      "RemoteSha": "1.0-6",
       "Hash": "0b118d5900596bae6c4d4865374536a6"
     },
     "brew": {
@@ -321,6 +324,13 @@
       "Repository": "CRAN",
       "Hash": "22149e0e0ea1cb4725b15d05ee6ed01f"
     },
+    "ggforce": {
+      "Package": "ggforce",
+      "Version": "0.3.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b7132d67f9814af0536cd5761be94314"
+    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.3.0",
@@ -412,6 +422,25 @@
       "Repository": "CRAN",
       "Hash": "15f6d57a664cd953a31ae4ea61e5e60e"
     },
+    "janitor": {
+      "Package": "janitor",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5b1dd03e95bfdec3ef8d010801345426"
+    },
+    "jmastats": {
+      "Package": "jmastats",
+      "Version": "0.0.0.9000",
+      "Source": "GitLab",
+      "RemoteType": "gitlab",
+      "RemoteHost": "gitlab.com",
+      "RemoteUsername": "uribo",
+      "RemoteRepo": "jmastats",
+      "RemoteSubdir": "",
+      "RemoteRef": "master",
+      "Hash": "35a4104d5bc9cc29aa3ba1db002f65c8"
+    },
     "jpmesh": {
       "Package": "jpmesh",
       "Version": "1.2.0",
@@ -463,8 +492,8 @@
       "RemoteUsername": "uribo",
       "RemoteRepo": "kuniumi",
       "RemoteRef": "master",
-      "RemoteSha": "5e3398d87a872e91854accdf73c5e303f042c7d5",
-      "Hash": "cd3eb070594c48ce85ab4d24ab60992e"
+      "RemoteSha": "b8304ad6d94e000293f821bbe6b01c6a3e0194c9",
+      "Hash": "753b2c9c01a0ffa31b895d9fa5acc642"
     },
     "labeling": {
       "Package": "labeling",
@@ -669,6 +698,13 @@
       "Repository": "CRAN",
       "Hash": "03b7076c234cb3331288919983326c55"
     },
+    "polyclip": {
+      "Package": "polyclip",
+      "Version": "1.10-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cb167f328b3ada4ec5cf67a7df4c900a"
+    },
     "praise": {
       "Package": "praise",
       "Version": "1.0.0",
@@ -814,6 +850,13 @@
       "Repository": "CRAN",
       "Hash": "33a5b27a03da82ac4b1d43268f80088a"
     },
+    "rvest": {
+      "Package": "rvest",
+      "Version": "0.3.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6a20c2cdf133ebc7ac45888c9ccc052b"
+    },
     "satellite": {
       "Package": "satellite",
       "Version": "1.0.2",
@@ -827,6 +870,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "a1c68369c629ea3188d0676e37069c65"
+    },
+    "selectr": {
+      "Package": "selectr",
+      "Version": "0.4-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
     },
     "sf": {
       "Package": "sf",
@@ -848,6 +898,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "a56d058adfc9df30bdd45dbb01cec39f"
+    },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4079070fc210c7901c0832a3aeab894f"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -921,8 +978,8 @@
       "RemoteUsername": "uribo",
       "RemoteRepo": "tabularmaps",
       "RemoteRef": "master",
-      "RemoteSha": "897c180192682429bb6da034eda91d150665b6f5",
-      "Hash": "c1fa13c81c9467e11aafbd6f6531c7ba"
+      "RemoteSha": "534b07e8b1b721c3bf314cb148c83b1c8760215f",
+      "Hash": "1ae7ed9d7a7753d6742116c9c6578b2b"
     },
     "testthat": {
       "Package": "testthat",
@@ -958,6 +1015,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "02e11a2e5d05f1d5ab19394f19ab2999"
+    },
+    "tweenr": {
+      "Package": "tweenr",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fc77eb5297507cccfa3349a606061030"
     },
     "txtq": {
       "Package": "txtq",
@@ -1049,6 +1113,18 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2826c5d9efb0a88f657c7a679c7106db"
+    },
+    "zipangu": {
+      "Package": "zipangu",
+      "Version": "0.2.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "uribo",
+      "RemoteRepo": "zipangu",
+      "RemoteRef": "master",
+      "RemoteSha": "ed31737080c971602a57cd6149d252d502459537",
+      "Hash": "fcf026105d6b1bfbfcaa1d1ec44a28dd"
     }
   }
 }
