@@ -34,8 +34,7 @@ read_yds_tky23_visitor <- function(path, ..., long = FALSE) {
       seq.int(3, ncol(d)),
       function(x) {
         x <- 
-          lubridate::as_date(as.numeric(x)) - 1
-        lubridate::year(x) <- 2020
+          lubridate::as_date(as.numeric(x), origin = "1899-12-30")
         as.character(x)
       }
     )
