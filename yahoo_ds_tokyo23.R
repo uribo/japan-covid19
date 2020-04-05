@@ -34,7 +34,7 @@ read_yds_tky23_visitor <- function(path, ..., long = FALSE) {
       seq.int(3, ncol(d)),
       function(x) {
         x <- 
-          lubridate::as_date(as.numeric(x))
+          lubridate::as_date(as.numeric(x)) - 1
         lubridate::year(x) <- 2020
         as.character(x)
       }
@@ -91,7 +91,6 @@ df_days <-
   mutate(wkn_mo = isoweek - min(isoweek),
          wkn_mo = if_else(wkdy == "日", wkn_mo + 1, wkn_mo)) %>% 
   ungroup()
-
 
 df_long <- 
   excel_sheets(dl_file) %>% 
@@ -164,7 +163,7 @@ p2 <-
 p1 + p2 +
   plot_layout(guides = "collect", ncol = 1) +
   plot_annotation(subtitle = "同一区内、先週の値（同曜日との比較）に対する来訪者の割合",
-                  caption = "作成: Shinya Uryu (@u_ribo)\nデータ: ヤフー・データソリューション")
+                  caption = "作成: Shinya Uryu (@u_ribo)\nデータ: ヤフー・データソリューション\n丸の中の数値は日付")
 ggsave(last_plot(),
        filename = "figures/tokyo23wards_visitor_calendar.png",
        width = 5,
@@ -212,7 +211,7 @@ gg_plot_cal_weather <- function(data, var, year, month, source_url) {
     theme_void(base_family = "IPAexGothic") +
     labs(title = glue::glue("{year}年{month}月の降水量"),
          subtitle = "地点「東京」の値",
-         caption = glue::glue("URL: {source_url}")) +
+         caption = glue::glue("URL: {source_url}\n丸の中の数値は日付")) +
     theme(plot.caption = element_text(size = 1))
 }
 
