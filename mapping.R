@@ -37,14 +37,14 @@ ne_jpn <-
   arrange(iso_3166_2)
 plan_data <- 
   drake::drake_plan(
+    if (!dir.exists("data-raw")) {
+      dir.create("data-raw")
+    },
     dl_pops_2018h30_prefs = {
-      if (!file.exists("data-raw/2018h30_a00400.xls")) {
-        dir.create("data-raw")
         download.file(
           "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
           destfile = "data-raw/2018h30_a00400.xls"
-        )  
-      }
+        )
     },
     # 13822000
     # 1382万2000
@@ -72,7 +72,7 @@ plan_data <-
                 stringr::str_trim),
   df_raw =
     readr::read_csv("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv") %>% 
-    assertr::verify(ncol(.) == 50),
+    assertr::verify(ncol(.) == 51),
   df =
     df_raw %>% 
     # 予備項目
@@ -89,6 +89,7 @@ plan_data <-
            -`確定日YYYYMMDD`,
            -`国内`,
            -`発表`,
+           -`居住管内`,
            -`都道府県内症例番号`,
            -`人数`,
            -`退院数`,
@@ -120,7 +121,7 @@ plan_data <-
     st_set_crs(4326) %>% 
     st_crop(ne_jpn) %>% 
     tibble::new_tibble(class = "sf", nrow = nrow(.)) %>% 
-    verify(dim(.) == c(1309, 17)),
+    verify(dim(.) == c(2212, 17)),
   df_pref_ratio = 
     df_pop_201810 %>% 
     select(jis_code, prefecture_kanji, total_both_sexes) %>% 
@@ -198,7 +199,6 @@ p1_a <-
 p2_a <- 
   plot_tabular_covid19(df_plot, ratio, name = "人口比率(%)") +
   guides(fill = FALSE)
-
 p1_b <- 
   plot_bar_covid19(df_plot, n, name = "感染者数")
 p2_b <-
