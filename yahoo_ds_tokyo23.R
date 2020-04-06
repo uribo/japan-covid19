@@ -131,9 +131,12 @@ df_visitors %>%
 gg_plot_visitor_cal <- function(data, var, year, month) {
   var <- rlang::enquo(var)
   data %>% 
-    gg_plot_cal(!!var, alpha = 0.7, size = 2, text_size = 0.8) +
+    gg_plot_cal(!!var, alpha = 0.8, size = 2, text_size = 0.8) +
     #rcartocolor::scale_color_carto_c(name = "(%)", type = "diverging", palette = "TealRose") +
-    scale_color_gradient2(name = "(%)", high = scales::muted("red"), low = scales::muted("blue"), midpoint = 0) +
+    scale_color_gradient2(name = "(%)", 
+                          high = scales::muted("red"), 
+                          low = scales::muted("blue"), 
+                          midpoint = 0) +
     facet_wrap(~ area) + 
     labs(title = glue::glue("東京23区 訪問者の推移 ({year}年{month}月)"),
          subtitle = "同一区内、先週の値（同曜日との比較）に対する割合") +
