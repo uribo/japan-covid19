@@ -35,16 +35,11 @@ ne_jpn <-
   ne_states(country = "Japan", returnclass = "sf") %>% 
   tibble::new_tibble(nrow = nrow(.), class = "sf") %>% 
   arrange(iso_3166_2)
+download.file(
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
+  destfile = "data-raw/2018h30_a00400.xls")
 plan_data <- 
   drake::drake_plan(
-    dl_pops_2018h30_prefs = {
-        download.file(
-          "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
-          destfile = "data-raw/2018h30_a00400.xls"
-        )
-    },
-    # 13822000
-    # 1382万2000
     df_pop_201810 =
       # 都道府県，男女別人口及び人口性比－総人口，日本人人口(平成30年10月1日現在)
       readxl::read_xls("data-raw/2018h30_a00400.xls",

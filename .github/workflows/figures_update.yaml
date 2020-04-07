@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '48 */6 * * *'
+    - cron:  '22 */6 * * *'
 
 name: Figures Update
 
