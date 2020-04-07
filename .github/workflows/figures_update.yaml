@@ -15,8 +15,7 @@ jobs:
       - name: Install font on ubuntu
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends
-            fonts-ipaexfont
+          sudo apt-get install -y --no-install-recommends fonts-ipaexfont
 
       - uses: actions/cache@v1
         if: startsWith(runner.os, 'Linux')
