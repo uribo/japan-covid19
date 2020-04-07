@@ -5,22 +5,10 @@
 # https://gis.jag-japan.com/covid19jp/
 # 項目について https://jag-japan.com/covid19map-readme/
 ####################################
-if (!requireNamespace("RCurl", quietly = TRUE)) {
-  renv::install("RCurl")
-}
-if (!requireNamespace("rgeos", quietly = TRUE)) {
-  renv::install("rgeos")
-}
 if (!requireNamespace("tabularmaps", quietly = TRUE)) {
   renv::install("uribo/tabularmaps")
 }
-if (!requireNamespace("rnaturalearthhires", quietly = TRUE)) {
-  renv::install("ropensci/rnaturalearthhires")
-}
-library(sf)
 library(dplyr)
-library(sfheaders)
-library(rnaturalearth)
 library(assertr)
 library(ensurer)
 library(tabularmaps)
@@ -28,18 +16,12 @@ library(ggplot2)
 library(patchwork)
 library(readxl)
 library(drake)
-library(mapview)
-library(kuniumi)
 library(nord)
 plot_font <-
   dplyr::if_else(grepl("apple",
                                      sessionInfo()$platform),
                                "IPAexGothic",
                                "IPAPGothic")
-ne_jpn <- 
-  ne_states(country = "Japan", returnclass = "sf") %>% 
-  tibble::new_tibble(nrow = nrow(.), class = "sf") %>% 
-  arrange(iso_3166_2)
 download.file(
   "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
   destfile = "data-raw/2018h30_a00400.xls")
@@ -111,13 +93,6 @@ plan_data <-
            notes = `備考`,
            jis_code = `居住都道府県コード`,
            last_update = `更新日時`),
-  sf_df = 
-    df %>% 
-    filter(!is.na(resident_city)) %>% 
-    sfheaders::sf_point("X", "Y", keep = TRUE) %>% 
-    st_set_crs(4326) %>% 
-    st_crop(ne_jpn) %>% 
-    tibble::new_tibble(class = "sf", nrow = nrow(.)),
   df_pref_ratio = 
     df_pop_201810 %>% 
     select(jis_code, prefecture_kanji, total_both_sexes) %>% 
@@ -151,11 +126,9 @@ plan_data <-
                datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
                  stringr::str_replace_all(":", "")))
 drake::make(plan_data)
-drake::loadd(list = c("df_raw", "df", "sf_df", "df_pref_ratio", "df_plot", 
+drake::loadd(list = c("df_raw", "df", "df_pref_ratio", "df_plot", 
                       "data_lastupdate", "data_period",
                       "path2prefecture_population_ratio"))
-# mapview::mapview(df)
-
 plot_tabular_covid19 <- function(data, type, ...) {
   p <-
     data %>%
