@@ -1,6 +1,9 @@
 日本国内新型コロナウィルス感染症データの可視化
 ================
 
+![Figures
+Update](https://github.com/uribo/japan-covid19/workflows/Figures%20Update/badge.svg)
+
 日本国内で発生した新型コロナウィルス感染症（COVID-19）のデータを可視化しています。
 
 ![](figures/latest_prefecture_population_ratio.png)

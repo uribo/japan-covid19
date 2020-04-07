@@ -37,9 +37,6 @@ ne_jpn <-
   arrange(iso_3166_2)
 plan_data <- 
   drake::drake_plan(
-    if (!dir.exists("data-raw")) {
-      dir.create("data-raw")
-    },
     dl_pops_2018h30_prefs = {
         download.file(
           "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
