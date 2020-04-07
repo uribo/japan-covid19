@@ -15,7 +15,7 @@ jobs:
       - name: Install font on ubuntu
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends fonts-ipaexfont curl libcurl4-openssl-dev libudunits2-dev
+          sudo apt-get install -y --no-install-recommends fonts-ipaexfont curl libcurl4-openssl-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 
       - uses: actions/cache@v1
         if: startsWith(runner.os, 'Linux')
