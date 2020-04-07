@@ -14,7 +14,9 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
 
       - name: Install font on macOS
-        run: brew cask install font-noto-sans-cjk-jp
+        run: |
+          brew tap homebrew/cask-fonts
+          brew cask install font-noto-sans-cjk-jp
 
       - uses: actions/cache@v1
         if: startsWith(runner.os, 'macOS')
