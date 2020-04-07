@@ -17,11 +17,6 @@ library(patchwork)
 library(readxl)
 library(drake)
 library(nord)
-plot_font <-
-  dplyr::if_else(grepl("apple",
-                                     sessionInfo()$platform),
-                               "IPAexGothic",
-                               "IPAPGothic")
 download.file(
   "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
   destfile = "data-raw/2018h30_a00400.xls")
@@ -111,7 +106,8 @@ plan_data <-
                      "prefecture_kanji" = "prefecture_kanji")) %>% 
     mutate(n = tidyr::replace_na(n, 0)) %>% 
     verify(dim(.) == c(47, 11)) %>% 
-    mutate(label = glue::glue("{prefecture_kanji}\n({n})")),
+    mutate(prefecture = stringr::str_remove(prefecture, "-.+"),
+           label = glue::glue("{prefecture}\n({n})")),
   data_lastupdate = 
     lubridate::mdy_hm(c(na.omit(unique(df$last_update))), 
                       tz = "Asia/Tokyo"),
@@ -119,8 +115,8 @@ plan_data <-
   data_period = 
     range(df$date) %>% 
     purrr::map_chr(
-      ~ format(.x, "%Y年%m月%d日")) %>% 
-    paste(collapse = "から"),
+      ~ format(.x, "%Y%m%d")) %>% 
+    paste(collapse = "to"),
   path2prefecture_population_ratio = 
     glue::glue("figures/{datetime}_prefecture_population_ratio.png",
                datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
@@ -135,11 +131,10 @@ plot_tabular_covid19 <- function(data, type, ...) {
     tabularmaps::tabularmap(
       fill = !!rlang::enquo(type),
       label = label,
-      family = plot_font,
       color = "white",
       size = 2
     ) +
-    tabularmaps::theme_tabularmap(base_family = plot_font) +
+    tabularmaps::theme_tabularmap() +
     ggplot2::theme(plot.caption = element_text(size = 6)) +
     nord::scale_fill_nord("halifax_harbor",
                           discrete = FALSE,
@@ -152,44 +147,43 @@ plot_bar_covid19 <- function(data, vars, ...) {
   data %>% 
     dplyr::filter(n > 0) %>% 
     dplyr::arrange(desc(ratio)) %>% 
-    ggplot2::ggplot(aes(forcats::fct_reorder(prefecture_kanji, !!vars), !!vars)) +
+    ggplot2::ggplot(aes(forcats::fct_reorder(prefecture, !!vars), !!vars)) +
     ggplot2::geom_bar(stat = "identity", aes(fill = !!vars)) +
     nord::scale_fill_nord("halifax_harbor", 
                     discrete = FALSE,
                     ...) +
     ggplot2::coord_flip() +
-    ggplot2::theme_gray(base_family = plot_font, base_size = 8) +
+    ggplot2::theme_gray(base_size = 8) +
     ggplot2::xlab(NULL)
 }
 
 p1_a <- 
-  plot_tabular_covid19(df_plot, n, name = "人数") +
+  plot_tabular_covid19(df_plot, n, name = "population") +
   guides(fill = FALSE)
 p2_a <- 
-  plot_tabular_covid19(df_plot, ratio, name = "人口比率(%)") +
+  plot_tabular_covid19(df_plot, ratio, name = "population ratio(%)") +
   guides(fill = FALSE)
 p1_b <- 
-  plot_bar_covid19(df_plot, n, name = "感染者数")
+  plot_bar_covid19(df_plot, n, name = "infected persons")
 p2_b <-
-  plot_bar_covid19(df_plot, ratio, name = "人口比率(%)")
+  plot_bar_covid19(df_plot, ratio, name = "population ratio(%)")
 
 plot_caps <- 
   list(
-    title = "都道府県別 コロナウイルス感染者数(累計)",
-    caption = glue::glue("作成: Shinya Uryu (@u_ribo)
-       データソース: 都道府県別新型コロナウイルス感染者数マップ（ジャッグジャパン株式会社提供）
-       (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\n{data_lastupdate}時点
-       レイアウト: カラム地図 (CC0, https://github.com/tabularmaps/hq)
-                            括弧内の数値は感染者数
-                         {data_period}のデータに基づく値"))
+    title = "Number of coronavirus infections by prefecture (total)",
+    caption = glue::glue("Shinya Uryu (@u_ribo)
+       Data: Coronavirus COVID-19 Japan Case by Each Prefecture（J.A.G JAPAN）
+       (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\nTime stamp: {data_lastupdate}
+       Layout: Tabularmaps (CC0, https://github.com/tabularmaps/hq)
+                            Numbers in parentheses indicate the number of infected people
+                         Values based on {data_period} data"))
 
 p1_a + p1_b +
   plot_layout(ncol = 2) +
   plot_annotation(
-    theme = theme(text = element_text(family = plot_font),
-                  plot.caption = element_text(size = 6)),
+    theme = theme(plot.caption = element_text(size = 6)),
     title = plot_caps$title,
-    subtitle = "1) 感染者の居住地",
+    subtitle = "1) Residence of infected people",
     caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = glue::glue("figures/{datetime}_prefecture_count.png",
@@ -201,10 +195,9 @@ ggsave(last_plot(),
 p2_a + p2_b +
   plot_layout(ncol = 2) +
   plot_annotation(
-    theme = theme(text = element_text(family = plot_font),
-                  plot.caption = element_text(size = 6)),
+    theme = theme(plot.caption = element_text(size = 6)),
     title = plot_caps$title,
-    subtitle = "2) 感染者の居住地と人口の比率",
+    subtitle = "2) Ratio of population to residence of infected people",
     caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = path2prefecture_population_ratio,
