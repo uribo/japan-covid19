@@ -157,11 +157,11 @@ plot_tabular_covid19 <- function(data, type, ...) {
     tabularmaps::tabularmap(
       fill = !!rlang::enquo(type),
       label = label,
-      family = "NotoSansCJKjp-Medium",
+      family = "Osaka",
       color = "white",
       size = 2
     ) +
-    tabularmaps::theme_tabularmap(base_family = "NotoSansCJKjp-Medium") +
+    tabularmaps::theme_tabularmap(base_family = "Osaka") +
     ggplot2::theme(plot.caption = element_text(size = 6)) +
     nord::scale_fill_nord("halifax_harbor",
                           discrete = FALSE,
@@ -180,7 +180,7 @@ plot_bar_covid19 <- function(data, vars, ...) {
                     discrete = FALSE,
                     ...) +
     ggplot2::coord_flip() +
-    ggplot2::theme_gray(base_family = "NotoSansCJKjp-Medium", base_size = 8) +
+    ggplot2::theme_gray(base_family = "Osaka", base_size = 8) +
     ggplot2::xlab(NULL)
 }
 
@@ -208,7 +208,7 @@ plot_caps <-
 p1_a + p1_b +
   plot_layout(ncol = 2) +
   plot_annotation(
-    theme = theme(text = element_text(family = "NotoSansCJKjp-Medium"),
+    theme = theme(text = element_text(family = "Osaka"),
                   plot.caption = element_text(size = 6)),
     title = plot_caps$title,
     subtitle = "1) 感染者の居住地",
@@ -223,7 +223,7 @@ ggsave(last_plot(),
 p2_a + p2_b +
   plot_layout(ncol = 2) +
   plot_annotation(
-    theme = theme(text = element_text(family = "NotoSansCJKjp-Medium"),
+    theme = theme(text = element_text(family = "Osaka"),
                   plot.caption = element_text(size = 6)),
     title = plot_caps$title,
     subtitle = "2) 感染者の居住地と人口の比率",
