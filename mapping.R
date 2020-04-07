@@ -120,8 +120,7 @@ plan_data <-
     sfheaders::sf_point("X", "Y", keep = TRUE) %>% 
     st_set_crs(4326) %>% 
     st_crop(ne_jpn) %>% 
-    tibble::new_tibble(class = "sf", nrow = nrow(.)) %>% 
-    verify(dim(.) == c(2212, 17)),
+    tibble::new_tibble(class = "sf", nrow = nrow(.)),
   df_pref_ratio = 
     df_pop_201810 %>% 
     select(jis_code, prefecture_kanji, total_both_sexes) %>% 
