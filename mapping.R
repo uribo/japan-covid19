@@ -203,6 +203,3 @@ ggsave(last_plot(),
        filename = "figures/latest_prefecture_population_ratio.png",
        width = 10,
        height = 8)
-# file.copy(path2prefecture_population_ratio,
-#           "figures/latest_prefecture_population_ratio.png", 
-#           overwrite = TRUE)

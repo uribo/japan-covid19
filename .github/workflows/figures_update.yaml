@@ -1,6 +1,7 @@
 on:
-  schedule:
-    - cron:  '20 * * * *'
+  push:
+    paths:
+      - mapping.R
 
 name: Figures Update
 
