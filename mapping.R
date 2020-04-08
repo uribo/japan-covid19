@@ -172,7 +172,7 @@ plot_caps <-
   list(
     title = "Number of coronavirus infections by prefecture (total)",
     caption = glue::glue("Shinya Uryu (@u_ribo)
-       Data: Coronavirus COVID-19 Japan Case by Each Prefecture（J.A.G JAPAN）
+       Data: Coronavirus COVID-19 Japan Case by Each Prefecture (J.A.G JAPAN)
        (CC BY-NC 4.0, https://gis.jag-japan.com/covid19jp/)\nTime stamp: {data_lastupdate}
        Layout: Tabularmaps (CC0, https://github.com/tabularmaps/hq)
                             Numbers in parentheses indicate the number of infected people
