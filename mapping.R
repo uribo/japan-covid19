@@ -87,8 +87,7 @@ plan_data <-
            status = `ステータス`,
            notes = `備考`,
            jis_code = `居住都道府県コード`,
-           last_update = `更新日時`) %>% 
-    verify(dim(.) == c(4476, 18)),
+           last_update = `更新日時`),
   df_pref_ratio = 
     df_pop_201810 %>% 
     select(jis_code, prefecture_kanji, total_both_sexes) %>% 
