@@ -178,7 +178,8 @@ plot_caps <-
                             Numbers in parentheses indicate the number of infected people
                          Values based on {data_period} data"))
 
-p1_a + p1_b +
+p1_a + 
+  p1_b +
   plot_layout(ncol = 2) +
   plot_annotation(
     theme = theme(plot.caption = element_text(size = 6)),
@@ -192,7 +193,8 @@ ggsave(last_plot(),
        width = 10,
        height = 8)
 
-p2_a + p2_b +
+p2_a + 
+  p2_b +
   plot_layout(ncol = 2) +
   plot_annotation(
     theme = theme(plot.caption = element_text(size = 6)),
