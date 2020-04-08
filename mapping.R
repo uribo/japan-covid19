@@ -112,7 +112,6 @@ plan_data <-
   data_lastupdate = 
     lubridate::mdy_hm(c(na.omit(unique(df$last_update))), 
                       tz = "Asia/Tokyo"),
-  # 累積であることの注意
   data_period = 
     range(df$date) %>% 
     purrr::map_chr(
