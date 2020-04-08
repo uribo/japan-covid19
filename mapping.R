@@ -17,9 +17,11 @@ library(patchwork)
 library(readxl)
 library(drake)
 library(nord)
-download.file(
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
-  destfile = "data-raw/2018h30_a00400.xls")
+if (!file.exists("data-raw/2018h30_a00400.xls")) {
+  download.file(
+    "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
+    destfile = "data-raw/2018h30_a00400.xls")
+}
 plan_data <- 
   drake::drake_plan(
     df_pop_201810 =
@@ -186,9 +188,7 @@ p1_a + p1_b +
     subtitle = "1) Residence of infected people",
     caption = plot_caps$caption)
 ggsave(last_plot(),
-       filename = glue::glue("figures/{datetime}_prefecture_count.png",
-                             datetime = stringr::str_replace(as.character(data_lastupdate), " ", "_") %>% 
-                               stringr::str_replace_all(":", "")),
+       filename = "figures/latest_prefecture_count.png",
        width = 10,
        height = 8)
 
@@ -200,9 +200,6 @@ p2_a + p2_b +
     subtitle = "2) Ratio of population to residence of infected people",
     caption = plot_caps$caption)
 ggsave(last_plot(),
-       filename = path2prefecture_population_ratio,
+       filename = "figures/latest_prefecture_population_ratio.png",
        width = 10,
        height = 8)
-file.copy(path2prefecture_population_ratio,
-          "figures/latest_prefecture_population_ratio.png", 
-          overwrite = TRUE)
