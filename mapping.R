@@ -17,9 +17,11 @@ library(patchwork)
 library(readxl)
 library(drake)
 library(nord)
-download.file(
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
-  destfile = "data-raw/2018h30_a00400.xls")
+if (!file.exists("data-raw/2018h30_a00400.xls")) {
+  download.file(
+    "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031807141&fileKind=0",
+    destfile = "data-raw/2018h30_a00400.xls")  
+}
 plan_data <- 
   drake::drake_plan(
     df_pop_201810 =
