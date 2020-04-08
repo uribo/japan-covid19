@@ -200,9 +200,9 @@ p2_a + p2_b +
     subtitle = "2) Ratio of population to residence of infected people",
     caption = plot_caps$caption)
 ggsave(last_plot(),
-       filename = path2prefecture_population_ratio,
+       filename = "figures/latest_prefecture_population_ratio.png",
        width = 10,
        height = 8)
-file.copy(path2prefecture_population_ratio,
-          "figures/latest_prefecture_population_ratio.png", 
-          overwrite = TRUE)
+# file.copy(path2prefecture_population_ratio,
+#           "figures/latest_prefecture_population_ratio.png", 
+#           overwrite = TRUE)
