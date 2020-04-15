@@ -11,50 +11,22 @@ library(lubridate)
 library(ggplot2)
 library(patchwork)
 library(jmastats)
-theme_set(theme_gray(base_size = 12,
-                     base_family = dplyr::if_else(grepl("apple", sessionInfo()$platform),
-                                                  "IPAexGothic",
-                                                  "IPAPGothic")))
+library(jpcovid19)
+library(rvest)
+library(ensurer)
+library(assertr)
 data("tky23", package = "tabularmaps")
+
+dl_file_url <- 
+  read_html("https://ds.yahoo.co.jp/report/") %>% 
+  html_nodes(css = "body > main > main > section.df-MainContent > div > div.df-MainContent__inner > a") %>% 
+  html_attr("href")
+
 dl_file <- 
   glue::glue("data-raw/{file}",
-             file = URLdecode("%E6%9D%B1%E4%BA%AC23%E5%8C%BA%E6%8E%A8%E7%A7%BB0403.xlsx"))
-if (file.exists(dl_file) == FALSE) {
-  download.file("https://dfi-place.west.edge.storage-yahoo.jp/web/report/%E6%9D%B1%E4%BA%AC23%E5%8C%BA%E6%8E%A8%E7%A7%BB0403.xlsx",
-                destfile = dl_file)  
-}
-
-read_yds_tky23_visitor <- function(path, ..., long = FALSE) {
-  d <-
-    readxl::read_xlsx(dl_file, ...) %>% 
-    tidyr::fill(1, .direction = "down")
-  fix_colnames <- 
-    names(d) %>% 
-    purrr::modify_at(
-      seq.int(3, ncol(d)),
-      function(x) {
-        x <- 
-          lubridate::as_date(as.numeric(x), origin = "1899-12-30")
-        as.character(x)
-      }
-    )
-  d <-
-    d %>% 
-    purrr::set_names(
-      fix_colnames)
-  if (long == TRUE) {
-    d <- 
-      d %>% 
-      tidyr::pivot_longer(seq.int(3, ncol(d)),
-                   names_to = "date",
-                   values_to = "visitors") %>% 
-      purrr::modify_at("date",
-                       ~ lubridate::as_date(.x))
-  }
-  d
-}
-# read_yds_tky23_visitor(dl_file, sheet = 1)
-# read_yds_tky23_visitor(dl_file, sheet = 1, long = TRUE)
+             file = URLdecode(basename(dl_file_url)))
+download.file(dl_file_url,
+              destfile = dl_file)
 
 gg_plot_cal <- function(data, var, text_size = 2, text_color = "black", ...) {
   var <- rlang::enquo(var)
@@ -71,10 +43,26 @@ gg_plot_cal <- function(data, var, text_size = 2, text_color = "black", ...) {
     ylab(NULL)
 }
 
-df_days <- 
-  tibble::tibble(
-    date = seq(ymd("2020-02-01"), ymd("2020-03-31"), by = 1)
-  ) %>% 
+df_long <- 
+  read_yds_tky23(dl_file, sheet = NULL, long = TRUE) %>% 
+  rename(area = `エリア`,
+         scope = `対象分類`)
+invisible(
+  df_long %>% 
+    pull(area) %>% 
+    unique() %>% 
+    ensure(length(.) == 24L)
+)
+invisible(
+  df_long %>% 
+    pull(scope) %>% 
+    unique() %>% 
+    ensure(length(.) == 3L)
+)
+
+df_days <-
+  df_long %>% 
+  distinct(date) %>%
   mutate(isoweek = isoweek(date),
          is_holiday = if_else(wday(date) %in% c(1, 7),
                               TRUE,
@@ -92,12 +80,7 @@ df_days <-
   ungroup()
 
 df_long <- 
-  excel_sheets(dl_file) %>% 
-  purrr::map_dfr(
-    ~ read_yds_tky23_visitor(dl_file, sheet = .x, long = TRUE)
-  ) %>%   
-  rename(area = `エリア`,
-         scope = `対象分類`) %>% 
+  df_long %>% 
   left_join(df_days, by = "date")
 
 df_long %>% 

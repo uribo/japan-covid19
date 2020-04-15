@@ -355,7 +355,7 @@
       "RemoteRepo": "jmastats",
       "RemoteSubdir": "",
       "RemoteRef": "master",
-      "Hash": "35a4104d5bc9cc29aa3ba1db002f65c8"
+      "Hash": "c7519a1be5375cbe07edc17b95fb8e32"
     },
     "jpcovid19": {
       "Package": "jpcovid19",
@@ -366,8 +366,8 @@
       "RemoteUsername": "tokyor",
       "RemoteRepo": "jpcovid19",
       "RemoteRef": "master",
-      "RemoteSha": "6c7c3ca0a0804611daa83d2349d2f8c2af4b8a9f",
-      "Hash": "12deabb000e1b1929860fb9644f1960c"
+      "RemoteSha": "6b5e19257922a797941bf0908625e3d09a973b33",
+      "Hash": "e63b2d78376e3df474bd17a95faece9b"
     },
     "jsonlite": {
       "Package": "jsonlite",
