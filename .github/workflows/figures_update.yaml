@@ -18,6 +18,12 @@ jobs:
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
             ${{ runner.os }}-renv-
+
+      - name: Install gdal on macOS
+        run: |
+          brew install pkg-config
+          brew install gdal
+
       - name: Install Package Dependencies
         run: |-
           Rscript -e "install.packages('renv'); renv::restore(confirm = FALSE)"
