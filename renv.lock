@@ -366,8 +366,8 @@
       "RemoteUsername": "tokyor",
       "RemoteRepo": "jpcovid19",
       "RemoteRef": "master",
-      "RemoteSha": "462b7ed013b62772ac671d02591f695c5a713414",
-      "Hash": "929126b204a18b2f7e9bf16db385b400"
+      "RemoteSha": "88549c8e28d7a9bc1329271cf631e8a5312261fb",
+      "Hash": "ada19fb2202d59290988245e012e4c30"
     },
     "jsonlite": {
       "Package": "jsonlite",
