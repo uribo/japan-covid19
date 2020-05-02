@@ -17,3 +17,5 @@ Update](https://github.com/uribo/japan-covid19/workflows/Figures%20Update/badge.
     BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ja))
   - [東京23区滞在人口推計値の日別遷移（全体・来訪者・住人）](https://ds.yahoo.co.jp/report/)
     出典：[ヤフー・データソリューション](https://ds.yahoo.co.jp/)
+  - [内閣官房 新型コロナウイルス感染症対策](https://corona.go.jp) …
+    株式会社Agoop提供、NTTドコモ「モバイル空間統計」分析レポート、KDDI株式会社提供による人流データ
