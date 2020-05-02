@@ -401,8 +401,8 @@
       "RemoteUsername": "tokyor",
       "RemoteRepo": "jpcovid19",
       "RemoteRef": "master",
-      "RemoteSha": "8952621ed654b40692b4812fd99a1e99af850ce7",
-      "Hash": "77f0a4b790f8708193092d2f5bbe6899"
+      "RemoteSha": "7ed54503271a765c7e2398deb4459edb62b8ffa2",
+      "Hash": "0056bd1778aab9cfee5abbdbd7ea3eb2"
     },
     "jpmesh": {
       "Package": "jpmesh",

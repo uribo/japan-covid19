@@ -12,11 +12,11 @@ df_corona_gojp <-
   tibble::as_tibble()
 
 if (!file.exists("data-raw/corona_gojp_mobility.csv")) {
-  df_corona_gojp %>% 
+  df_corona_gojp %>%
     readr::write_csv("data-raw/corona_gojp_mobility.csv")
 } else {
   rbind(readr::read_csv("data-raw/corona_gojp_mobility.csv"),
-        df_corona_gojp) %>% 
+        df_corona_gojp) %>%
     readr::write_csv("data-raw/corona_gojp_mobility.csv")
 }
 
@@ -48,7 +48,4 @@ if (!file.exists("data-raw/mobility_nttdocomo_locations.rds")) {
     jpmesh::meshcode_sf(meshcode)
   df_nttdocomo_locations %>% 
     readr::write_rds("data-raw/mobility_nttdocomo_locations.rds")
-} else {
-  df_nttdocomo_locations <-
-    readr::read_rds("data-raw/mobility_nttdocomo_locations.rds")
 }
