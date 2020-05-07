@@ -1,12 +1,10 @@
 library(jpcovid19)
-sources <- 
-  c("agoop", "docomo", "kddi")
-
 df_corona_gojp <-
-  sources %>% 
+  c("agoop", "docomo", "kddi", "yahoo") %>% 
   purrr::set_names(c("株式会社Agoop", 
                      "NTTドコモ「モバイル空間統計」分析レポート", 
-                     "KDDI株式会社")) %>% 
+                     "KDDI株式会社",
+                     "ヤフー・データソリューション")) %>% 
   purrr::map_dfr(~ collect_corona_go_jp(.x),
                  .id = "source") %>% 
   tibble::as_tibble()
