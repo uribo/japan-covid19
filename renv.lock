@@ -390,7 +390,7 @@
       "RemoteRepo": "jmastats",
       "RemoteSubdir": "",
       "RemoteRef": "master",
-      "Hash": "c7519a1be5375cbe07edc17b95fb8e32"
+      "Hash": "35a4104d5bc9cc29aa3ba1db002f65c8"
     },
     "jpcovid19": {
       "Package": "jpcovid19",
@@ -681,7 +681,8 @@
       "Package": "renv",
       "Version": "0.10.0",
       "Source": "Repository",
-      "Repository": "CRAN"
+      "Repository": "CRAN",
+      "Hash": "0d3f1c2b63e70b3d918246b4e2ca59b7"
     },
     "rlang": {
       "Package": "rlang",
