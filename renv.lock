@@ -406,10 +406,10 @@
     },
     "jpmesh": {
       "Package": "jpmesh",
-      "Version": "1.2.0",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1dc2ed9575ef77f1c495a191045ec1a2"
+      "Hash": "d6ddb1f7b237decdae6a01c04768e2c4"
     },
     "jsonlite": {
       "Package": "jsonlite",
@@ -560,10 +560,10 @@
     },
     "pkgbuild": {
       "Package": "pkgbuild",
-      "Version": "1.0.7",
+      "Version": "1.0.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4c2692dda4c30c71209da02ebbfa0258"
+      "Hash": "8d8b5e29223aabb829246397299f0592"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -735,10 +735,10 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "0.9-2",
+      "Version": "0.9-3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "473de5599639f9d3e46a1c5399efdc9b"
+      "Hash": "f16ad0ac903df6727dbfb2e30eafcc26"
     },
     "shiny": {
       "Package": "shiny",
@@ -824,10 +824,10 @@
     },
     "tidyr": {
       "Package": "tidyr",
-      "Version": "1.0.2",
+      "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "fb73a010ace00d6c584c2b53a21b969c"
+      "Hash": "df860e8e4e1a1b454f18537c8bc96211"
     },
     "tidyselect": {
       "Package": "tidyselect",
