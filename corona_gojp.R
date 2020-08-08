@@ -1,10 +1,9 @@
 library(jpcovid19)
 df_corona_gojp <-
-  c("agoop", "docomo", "kddi", "yahoo") %>% 
+  c("agoop", "docomo", "kddi") %>% 
   purrr::set_names(c("株式会社Agoop", 
                      "NTTドコモ「モバイル空間統計」分析レポート", 
-                     "KDDI株式会社",
-                     "ヤフー・データソリューション")) %>% 
+                     "KDDI株式会社")) %>% 
   purrr::map_dfr(~ collect_corona_go_jp(.x),
                  .id = "source") %>% 
   tibble::as_tibble()
@@ -13,7 +12,8 @@ if (!file.exists("data-raw/corona_gojp_mobility.csv")) {
   df_corona_gojp %>%
     readr::write_csv("data-raw/corona_gojp_mobility.csv")
 } else {
-  rbind(readr::read_csv("data-raw/corona_gojp_mobility.csv"),
+  rbind(readr::read_csv("data-raw/corona_gojp_mobility.csv",
+                        col_types = "cDdcdddd"),
         df_corona_gojp) %>%
     readr::write_csv("data-raw/corona_gojp_mobility.csv")
 }
