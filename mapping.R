@@ -5,9 +5,6 @@
 # https://gis.jag-japan.com/covid19jp/
 # 項目について https://jag-japan.com/covid19map-readme/
 ####################################
-if (!requireNamespace("tabularmaps", quietly = TRUE)) {
-  renv::install("uribo/tabularmaps")
-}
 library(dplyr)
 library(assertr)
 library(ensurer)
@@ -48,31 +45,31 @@ plan_data <-
                 stringr::str_trim),
   df_raw =
     readr::read_csv("https://dl.dropboxusercontent.com/s/6mztoeb6xf78g5w/COVID-19.csv") %>% 
-    assertr::verify(ncol(.) == 51),
+    assertr::verify(ncol(.) == 52),
   df =
     df_raw %>% 
     # 予備項目
-    select(-num_range("Field", seq.int(2, 10)),
-           -contains("累計"),
-           -contains("前日比"),
-           -contains("正誤確認用"),
-           -contains("Pref"),
-           -starts_with("ソース"),
+    select(!num_range("Field", seq.int(2, 10)),
+           !contains("累計"),
+           !contains("前日比"),
+           !contains("正誤確認用"),
+           !contains("Pref"),
+           !starts_with("ソース"),
            # -ends_with("都道府県コード"),
-           -Release,
-           -Gender,
-           -`キー`,
-           -`確定日YYYYMMDD`,
-           -`国内`,
-           -`発表`,
-           -`居住管内`,
-           -`都道府県内症例番号`,
-           -`人数`,
-           -`退院数`,
-           -`発症数`,
-           -`PCR検査実施人数`,
-           -`無症状病原体保有者`,
-           -`死者合計`) %>%
+           !Release,
+           !Gender,
+           !`キー`,
+           !`確定日YYYYMMDD`,
+           !`国内`,
+           !`発表`,
+           !`居住管内`,
+           !`都道府県内症例番号`,
+           !`人数`,
+           !`退院数`,
+           !`発症数`,
+           !`PCR検査実施人数`,
+           !`無症状病原体保有者`,
+           !`死者合計`) %>%
     filter(X != "0") %>% 
     filter(!is.na(`居住都道府県コード`)) %>% 
     filter(`居住都道府県コード` != "0") %>% 
@@ -131,6 +128,9 @@ plot_tabular_covid19 <- function(data, type, ...) {
   p <-
     data %>%
     tabularmaps::tabularmap(
+      x = x,
+      y = y,
+      group = prefecture,
       fill = !!rlang::enquo(type),
       label = label,
       color = "white",
@@ -158,6 +158,18 @@ plot_bar_covid19 <- function(data, vars, ...) {
     ggplot2::theme_gray(base_size = 8) +
     ggplot2::xlab(NULL)
 }
+
+df_plot %>%
+  tabularmaps::tabularmap(
+    x = x,
+    y = y,
+    group = prefecture,
+    fill = n,
+    label = label,
+    color = "white",
+    size = 2
+  ) +
+  tabularmaps::theme_tabularmap()
 
 p1_a <- 
   plot_tabular_covid19(df_plot, n, name = "population") +
@@ -189,7 +201,7 @@ p1_a + p1_b +
     caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = "figures/latest_prefecture_count.png",
-       width = 10,
+       width = 16,
        height = 8)
 
 p2_a + p2_b +
@@ -201,5 +213,5 @@ p2_a + p2_b +
     caption = plot_caps$caption)
 ggsave(last_plot(),
        filename = "figures/latest_prefecture_population_ratio.png",
-       width = 10,
+       width = 16,
        height = 8)
