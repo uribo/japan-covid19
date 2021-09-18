@@ -3,3 +3,6 @@
 !mobility_nttdocomo_locations.rds
 !mobility_kddi_locations.rds
 !/.gitignore
+!まん延防止等重点措置の発令.csv
+!緊急事態宣言の発令.csv
+!emergencies.R
