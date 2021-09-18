@@ -175,8 +175,8 @@ df_manbou_all <- tribble(
 ) %>% 
   separate_rows(area, sep = "、") %>% 
   mutate(type = if_else(area == "旧唐津市",
-                        "city",
-                        "other")) %>% 
+                        "other",
+                        "city")) %>% 
   relocate(type, .after = area)
 
 df_manbou_all %>% 
